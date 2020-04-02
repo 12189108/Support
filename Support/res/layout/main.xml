@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:id="@+id/mainLinearLayout1"
+	android:background="#FFFFFF"
+	android:orientation="vertical"
+	android:layout_gravity="top">
+
+	<EditText
+		android:layout_height="wrap_content"
+		android:inputType="textImeMultiLine"
+		android:layout_width="match_parent"
+		android:ems="10"
+		android:imeOptions="actionSearch"
+		android:id="@+id/mainEditText1"/>
+
+</LinearLayout>
+

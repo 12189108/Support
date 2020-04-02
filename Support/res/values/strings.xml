@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Task1</string>
+    <string name="exit">退出</string>
+    <string name="DTitle">提示</string>
+    <string name="isexit">确定退出吗？</string>
+    <string name="yes">确定</string>
+    <string name="no">取消</string>
+	<string name="user">账号</string>
+	<string name="password">密码</string>
+	<string name="register">注册</string>
+	<string name="login">登陆</string>
+	<string name="forget">忘记密码</string>
+	<string name="error">暂不支持该功能！</string>
+</resources>
