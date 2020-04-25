@@ -21,7 +21,7 @@ public class BaseActivity extends Activity
 	private LinearLayout LinearLayouts,LinearLayout0,LinearLayout1;
 	private ImageView ImageView;
 	private GridView GridView;
-	private TextView TextView;
+	private TextView TextView; 
 	public DialogFactorySupport DialogFactorySupport;
 	public DeviceSupport DeviceSupport;
 	public ShortToastFactorySupport ShortToastFactorySupport;
@@ -40,6 +40,7 @@ public class BaseActivity extends Activity
 		setTheme(android.R.style.Theme_Material_Light_NoActionBar);
 		v=LayoutInflater.from(this).inflate(R.layout.tab,null);
 		setContentView(v);
+		
 		LinearLayouts=(LinearLayout) v.findViewById(R.id.tabLinearLayout);
 		LinearLayout0=(LinearLayout)v.findViewById(R.id.tabLinearLayout2);
 		LinearLayout1=(LinearLayout) v.findViewById(R.id.tabLinearLayout1);
@@ -52,6 +53,7 @@ public class BaseActivity extends Activity
 		setTabImage(getPackageIcon());
 		setTabTitle(getAppName());
 		DialogFactorySupport=new DialogFactorySupport(context);
+		NetSecurity();
 		ShortToastFactorySupport=new ShortToastFactorySupport(context);
 		DialogSupport=new DialogSupport(context);
 		LongToastFactorySupport=new LongToastFactorySupport(context);
@@ -103,7 +105,15 @@ public class BaseActivity extends Activity
 		}
 		catch (Throwable e)
 		{throw new NullPointerException();}
-		}
+	}
+
+	public String getstring(int resId)
+	{
+		// TODO: Implement this method
+		if(Context!=null) return MD5Support.getString(this,ByteTransformSupport.Base64Decode(getString(resId)));
+		else return getString(resId);
+	}
+	
 	public int getVersionCode(){
 		int ver=-1;
 		try
@@ -123,6 +133,10 @@ public class BaseActivity extends Activity
 		catch (PackageManager.NameNotFoundException e)
 		{}
 		return ver;
+	}
+	private void NetSecurity(){
+		//if(!(System.getProperty("http.proxyHost")==null&&System.getProperty("http.proxyPort")==null))SystemServiceSupport.toKill();
+		//LongToastFactorySupport.makeText(System.getProperty("http.proxyHost")+System.getProperty("http.proxyPort")).show();
 	}
 		public Bitmap Capture(){
 			hideKeyboard();
@@ -197,6 +211,12 @@ public class BaseActivity extends Activity
 		}
 		catch (IOException e)
 		{}
+	}
+	protected void makeToast(int str){
+		if(Context!=null)LongToastFactorySupport.makeText(getstring(str)).show();
+	}
+	protected void makeToast(int str,int drawable){
+		if(Context!=null)LongToastFactorySupport.makeText(getstring(str),drawable).show();
 	}
 	protected void hideKeyboard()
 	{
