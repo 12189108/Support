@@ -58,9 +58,10 @@ public class BaseActivity extends Activity
 		DialogSupport=new DialogSupport(context);
 		LongToastFactorySupport=new LongToastFactorySupport(context);
 		IOSupport=new IOSupport(context);
+		SystemServiceSupport=new SystemServiceSupport(context);
+		SystemServiceSupport.checkKeyboard(this,SystemServiceSupport.getString(this,R.string.LTitle));
 		IOHelperSupport=new IOHelperSupport(context);
 		SystemSupport=new SystemSupport(context);
-		SystemServiceSupport=new SystemServiceSupport(context);
 		ServiceSupport=new ServiceSupport();
 		DeviceSupport=new DeviceSupport(context);
 		SharedPreferencesSupport=new SharedPreferencesSupport(context);

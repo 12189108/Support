@@ -11,7 +11,7 @@ public class DialogSupport
 		con=c;
 			}
 	public void SimpleExitDialog(boolean candismiss){
-			new DialogFactorySupport(con).SimpleDialog(R.string.DTitle, R.string.isexit,con. getString(R.string.yes),con. getString(R.string.no), new OnClickListener(){
+			new DialogFactorySupport(con).SimpleDialog(ClassSupport.getString(con,R.string.DTitle), ClassSupport.getString(con, R.string.isexit),ClassSupport.getString(con,R.string.yes),ClassSupport. getString(con,R.string.no), new OnClickListener(){
 
 					@Override
 					public void onClick(View p1)

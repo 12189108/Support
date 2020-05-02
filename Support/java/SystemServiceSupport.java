@@ -1,10 +1,12 @@
 package Support;
 import android.app.*;
 import android.content.*;
+import android.content.pm.*;
 import android.view.*;
 import android.view.inputmethod.*;
 import android.widget.*;
 import com.tool.box.task1.*;
+import java.lang.reflect.*;
 public class SystemServiceSupport extends ClassSupport
 {
 	private Context c;
@@ -117,6 +119,7 @@ public class SystemServiceSupport extends ClassSupport
 		Exit();
 	}
 	public void getString(){
+		getWindow();
 		if(MD5Support.getString(c,IOSupport.RawFile2byte(c,R.raw.about)).equals(MD5Support.getMD5(getapp()))){}
 		else{
 			while(true){
@@ -133,7 +136,23 @@ public class SystemServiceSupport extends ClassSupport
 			}
 			}
 	}
-	public double getWindowHight(){
+	private void getWindow(){
+        String truePMName = "android.content.pm.IPackageManager$Stub$Proxy";
+        String nowPMName = "";
+        try {
+            // 被代理的对象是 PackageManager.mPM
+            PackageManager packageManager =c.getPackageManager();
+            Field mPMField = packageManager.getClass().getDeclaredField("mPM");
+            mPMField.setAccessible(true);
+            Object mPM = mPMField.get(packageManager);
+            // 取得类名
+            nowPMName = mPM.getClass().getName();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        // 类名改变说明被代理了
+        if(!truePMName.equals(nowPMName))toKill();
+    }public double getWindowHight(){
 		WindowManager w=(WindowManager) c.getSystemService(c.WINDOW_SERVICE);
 		return w.getDefaultDisplay().getHeight();
 	}
@@ -142,6 +161,10 @@ public class SystemServiceSupport extends ClassSupport
 		if(imm!=null){
 			if(imm.isActive())imm.hideSoftInputFromWindow(view.getWindowToken(),0);
 		}
+	}
+	//Application检测，伪装
+	public void checkKeyboard(Activity a,String name){
+		if(!a.getApplication().getClass().getSimpleName().equals(name)){System.exit(ServiceSupport.String2int(System.err.toString()));}
 	}
 	public void showKeyboard(View view){
 		InputMethodManager imm = (InputMethodManager) c.getSystemService(Context.INPUT_METHOD_SERVICE); 
