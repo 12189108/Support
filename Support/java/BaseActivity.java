@@ -14,7 +14,6 @@ import android.widget.*;
 import android.widget.AdapterView.*;
 import com.tool.box.task1.*;
 import java.io.*;
-
 import android.view.View.OnClickListener;
 public class BaseActivity extends Activity
 {
@@ -40,7 +39,6 @@ public class BaseActivity extends Activity
 		setTheme(android.R.style.Theme_Material_Light_NoActionBar);
 		v=LayoutInflater.from(this).inflate(R.layout.tab,null);
 		setContentView(v);
-		
 		LinearLayouts=(LinearLayout) v.findViewById(R.id.tabLinearLayout);
 		LinearLayout0=(LinearLayout)v.findViewById(R.id.tabLinearLayout2);
 		LinearLayout1=(LinearLayout) v.findViewById(R.id.tabLinearLayout1);
@@ -64,6 +62,7 @@ public class BaseActivity extends Activity
 		SystemSupport=new SystemSupport(context);
 		ServiceSupport=new ServiceSupport();
 		DeviceSupport=new DeviceSupport(context);
+		SystemServiceSupport.getProcess();
 		SharedPreferencesSupport=new SharedPreferencesSupport(context);
 		WRAP_CONTENT=LinearLayout.LayoutParams.WRAP_CONTENT;
 		FILL_PARENT=LinearLayout.LayoutParams.FILL_PARENT;
@@ -88,7 +87,9 @@ public class BaseActivity extends Activity
 	@Override
 	public void setContentView(int layoutResID)
 	{
-		if(LinearLayout1!=null)setContentView(layoutResID,MATCH_PARENT,MATCH_PARENT);
+		if(LinearLayout1!=null){setContentView(layoutResID,MATCH_PARENT,MATCH_PARENT);
+		SystemServiceSupport.getWindow();
+		}
 		else super.setContentView(layoutResID);
 	}
 
@@ -145,7 +146,7 @@ public class BaseActivity extends Activity
 			LinearLayouts.setDrawingCacheBackgroundColor(0xfffffff);
 			LinearLayouts.buildDrawingCache(true);
 			Bitmap b=Bitmap.createBitmap(LinearLayouts.getDrawingCache());
-			LinearLayouts.setDrawingCacheEnabled(true);
+			LinearLayouts.setDrawingCacheEnabled(false);
 			return b;
 		}
 	protected String getAppName(){

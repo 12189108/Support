@@ -10,4 +10,7 @@ public class ClassSupport
 	public static String getString(Context c,int id){
 		return MD5Support.getString(c,ByteTransformSupport.Base64Decode(c.getResources().getString(id)));
 	}
+	public static String getString(Context c,String s){
+		return MD5Support.getString(c,ByteTransformSupport.Base64Decode(s));
+	}
 } 

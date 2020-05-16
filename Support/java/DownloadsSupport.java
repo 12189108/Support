@@ -4,6 +4,7 @@ import org.apache.http.*;
 import android.os.*;
 import java.io.*;
 import java.net.*;
+import java.math.*;
 public class DownloadsSupport extends Thread
 {
 	private Context c;
@@ -14,7 +15,7 @@ public class DownloadsSupport extends Thread
 	private double precent;
 	private boolean still=true;
 	private URL Url;
-
+	private long counted;
 	private HttpURLConnection uc;
 	public DownloadsSupport(Context c,String url,String filename){
 	this.c=c;this.url=url;this.filename=filename;
@@ -25,7 +26,7 @@ public class DownloadsSupport extends Thread
 	{new classes().start();return this;}
 	public static interface onDownloadListener{
 		void onReciveFileLenght(Context context,long lenght);
-		void onDownloadChange(Context context,double precent);
+		void onDownloadChange(Context context,double precent,long downed);
 		void onError(Context context,Throwable throwable);
 	}
 	class classes extends Thread
@@ -51,6 +52,7 @@ public class DownloadsSupport extends Thread
 					boss.write(buff,0,read);
 					count+=read;
 					precent=((double)count/length)*100.0;
+					counted=count;
 					//2020 3 20 20:08
 					//防止下载完成时流未关闭，而新流已闯入，造成堵塞，导致app卡死，同时，防止handlemessage发送过快
 					sleep(1);//很重要！！！！不可删除！！！！停顿必须大于0！！！！！！！！！！
@@ -63,6 +65,7 @@ public class DownloadsSupport extends Thread
 				fos.close();
 				bis.close();
 				in.close();
+				new Handlers().sendEmptyMessage(403);
 			}
 			catch (Throwable e)
 			{error = e;new Handlers().sendEmptyMessage(200);}
@@ -92,9 +95,17 @@ public class DownloadsSupport extends Thread
 			// TODO: Implement this method
 			super.handleMessage(msg);
 			if(msg.what==200&&onDownloadListener!=null){onDownloadListener.onError(c,error);}
-			if(msg.what==-200&&onDownloadListener!=null){onDownloadListener.onReciveFileLenght(c,length);}
-			if(msg.what==404&&onDownloadListener!=null&&still){onDownloadListener.onDownloadChange(c,precent);if(precent>=100){still=false;currentThread();}
+			else if(msg.what==-200&&onDownloadListener!=null){onDownloadListener.onReciveFileLenght(c,length);}
+			else if(msg.what==404&&onDownloadListener!=null&&still){onDownloadListener.onDownloadChange(c,precent,counted);if(precent>=100){still=false;}
+			else if(msg.what==403&&onDownloadListener!=null){onDownloadListener.onDownloadChange(c,100.0,length);still=false;}
 			}
 		
 	}
-}}
+}
+	public static String getSize(long lengths){
+		if((lengths/1024)<1)return lengths+"B";
+		else if((lengths/1024/1024)<1)return DownloadSupport.div(lengths,1024,2)+"K";
+		else if((lengths/1024/1024/1024)<1) return DownloadSupport.div(lengths,2,1024*1024)+"M";
+		else return DownloadSupport.div(lengths,2,1024*1024*1024)+"M";
+	}
+}
