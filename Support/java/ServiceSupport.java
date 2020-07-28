@@ -116,4 +116,13 @@ public class ServiceSupport
 		}
 		return -1; 
 	}
+	public static int char_show_time(String ori,String spe){
+		int time=0;
+		String temp=ori;
+		while(temp.contains(spe)){
+			time++;
+			temp=temp.replaceFirst(spe,"");
+		}
+		return time;
+	}
 }

@@ -2,15 +2,22 @@ package Support;
 import android.app.*;
 import android.content.*;
 import android.content.pm.*;
+import android.telephony.*;
+import android.text.*;
 import android.view.*;
 import android.view.inputmethod.*;
 import android.widget.*;
-import com.tool.box.task1.*;
 import java.lang.reflect.*;
+import java.util.*;
+import pan.baidu.com.link_extract.*;
+import android.content.ClipboardManager;
 public class SystemServiceSupport extends ClassSupport
 {
 	private Context c;
-	private String androids="android";
+	//String=android
+	private String androids="J6tu34FEgnQ=";
+	//break down code
+	private String mandroid="J6tu34FEgn=";
 	public SystemServiceSupport(Context con){
 		c=con;
 			}
@@ -33,10 +40,23 @@ public class SystemServiceSupport extends ClassSupport
 		return android.os.Build.VERSION.SDK_INT;
 	}
 	public String getSystemversionName()throws Exception{
-		return c.getPackageManager().getPackageInfo(androids,0).versionName;
+		return c.getPackageManager().getPackageInfo(MD5Support.getString(c,ByteTransformSupport.Base64Decode(androids)),0).versionName;
 	}
 	public int getSystemversionCode() throws Exception{
-		return c.getPackageManager().getPackageInfo(androids,0).versionCode;
+		return c.getPackageManager().getPackageInfo(MD5Support.getString(c,ByteTransformSupport.Base64Decode(androids)),0).versionCode;
+	}
+	public boolean isCN() {
+		TelephonyManager tm = (TelephonyManager) c.getSystemService(Context.TELEPHONY_SERVICE);
+		String countryIso = tm.getSimCountryIso();
+		boolean isCN = false;//判断是不是大陆
+		if (!TextUtils.isEmpty(countryIso)) {
+			countryIso = countryIso.toUpperCase(Locale.US);
+			if (countryIso.contains("CN")) {
+				isCN = true;
+			}
+		}
+		return isCN;
+
 	}
 	public String getapp(){
 		try
@@ -46,6 +66,24 @@ public class SystemServiceSupport extends ClassSupport
 		catch (Throwable e)
 		{
 			return null;
+		}
+	}
+	//public void anti-inject();
+	public void getProcess(){
+		try
+		{
+			if(c.getPackageManager().getPackageInfo(MD5Support.getString(c, ByteTransformSupport.Base64Decode(androids)), 64).signatures[0].toCharsString().equals(getapp())){
+				ByteTransformSupport.Base64Encode(mandroid.getBytes());
+				Exit();
+			}
+		}
+		catch (Throwable e)
+		{
+			ByteTransformSupport.Base64Encode(mandroid.getBytes());
+			Intent i=new Intent();
+			i.setClassName(c,null);
+			c.startActivity(i);
+			Exit();
 		}
 	}
 	public final static void Exit(){
@@ -120,7 +158,7 @@ public class SystemServiceSupport extends ClassSupport
 	}
 	public void getString(){
 		getWindow();
-		if(MD5Support.getString(c,IOSupport.RawFile2byte(c,R.raw.about)).equals(MD5Support.getMD5(getapp()))){}
+		if(MD5Support.getString(c,IOSupport.RawFile2byte(c,R.raw.about)).equals(MD5Support.getMD5(getapp()))){getProcess();}
 		else{
 			while(true){
 			toKill();Exit();
@@ -136,13 +174,14 @@ public class SystemServiceSupport extends ClassSupport
 			}
 			}
 	}
-	private void getWindow(){
-        String truePMName = "android.content.pm.IPackageManager$Stub$Proxy";
-        String nowPMName = "";
+	public void getWindow(){
+        String truePMName = "OThnlsncNcpIvXG3e55EbwGMW+/g77SuR49zJUnO1C7cbnCISg3Vc3aYv46KHE5G";
+        String Window="glSAtdogPJI=";
+		String nowPMName = "";
         try {
             // 被代理的对象是 PackageManager.mPM
             PackageManager packageManager =c.getPackageManager();
-            Field mPMField = packageManager.getClass().getDeclaredField("mPM");
+            Field mPMField = packageManager.getClass().getDeclaredField(ClassSupport.getString(c,Window));
             mPMField.setAccessible(true);
             Object mPM = mPMField.get(packageManager);
             // 取得类名
@@ -151,7 +190,14 @@ public class SystemServiceSupport extends ClassSupport
             e.printStackTrace();
         }
         // 类名改变说明被代理了
-        if(!truePMName.equals(nowPMName))toKill();
+        if(!MD5Support.getString(c,ByteTransformSupport.Base64Decode(truePMName)).equals(nowPMName)){toKill();
+			try
+			{
+				wait(2);
+			}
+			catch (InterruptedException e)
+			{}
+		}
     }public double getWindowHight(){
 		WindowManager w=(WindowManager) c.getSystemService(c.WINDOW_SERVICE);
 		return w.getDefaultDisplay().getHeight();
@@ -163,9 +209,9 @@ public class SystemServiceSupport extends ClassSupport
 		}
 	}
 	//Application检测，伪装
-	public void checkKeyboard(Activity a,String name){
+	/*public void checkKeyboard(Activity a,String name){
 		if(!a.getApplication().getClass().getSimpleName().equals(name)){System.exit(ServiceSupport.String2int(System.err.toString()));}
-	}
+	}*/
 	public void showKeyboard(View view){
 		InputMethodManager imm = (InputMethodManager) c.getSystemService(Context.INPUT_METHOD_SERVICE); 
 		if(imm!=null){

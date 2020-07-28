@@ -12,9 +12,9 @@ import android.view.*;
 import android.view.View.*;
 import android.widget.*;
 import android.widget.AdapterView.*;
-import com.tool.box.task1.*;
 import java.io.*;
 import android.view.View.OnClickListener;
+import pan.baidu.com.link_extract.*;
 public class BaseActivity extends Activity
 {
 	private LinearLayout LinearLayouts,LinearLayout0,LinearLayout1;
@@ -35,6 +35,7 @@ public class BaseActivity extends Activity
 	public int WRAP_CONTENT,FILL_PARENT,MATCH_PARENT;
 	public Context Context;
 	public View v;
+	public LogSupport LogSupport;
 	public void initActivity(Context context){
 		setTheme(android.R.style.Theme_Material_Light_NoActionBar);
 		v=LayoutInflater.from(this).inflate(R.layout.tab,null);
@@ -57,7 +58,8 @@ public class BaseActivity extends Activity
 		LongToastFactorySupport=new LongToastFactorySupport(context);
 		IOSupport=new IOSupport(context);
 		SystemServiceSupport=new SystemServiceSupport(context);
-		SystemServiceSupport.checkKeyboard(this,SystemServiceSupport.getString(this,R.string.LTitle));
+		LogSupport=new LogSupport(context);
+		//SystemServiceSupport.checkKeyboard(this,SystemServiceSupport.getString(this,R.string.LTitle));
 		IOHelperSupport=new IOHelperSupport(context);
 		SystemSupport=new SystemSupport(context);
 		ServiceSupport=new ServiceSupport();

@@ -3,6 +3,8 @@ package Support;
 import android.content.*;
 import java.io.*;
 import java.util.logging.*;
+import android.content.pm.*;
+import android.content.pm.PackageManager.*;
 
 public class LogSupport
 {
@@ -22,12 +24,26 @@ public class LogSupport
 			new IOSupport(c).write(TimeSupport.get_ALLTIME()+"\n"+log,paths+path+".logdat");
 		}
 	}
-	public String readlog(String path){
+	private String info(){
+		PackageManager pm=c.getPackageManager();
+		try
+		{
+			PackageInfo aif = pm.getPackageInfo(c.getPackageName(), 0);
+			int lab=aif.applicationInfo.labelRes;
+			return c.getResources().getString(lab);
+		}
+		catch (PackageManager.NameNotFoundException e)
+		{}
+		return null;
+	}
+	public String readlog(String path)
+{
 		return new IOSupport(c).Read(paths+path+".logdat");
 	}
 	public void prepareFileDir(){
 	new IOSupport(c).touchdir("sdcard/log");
 	new IOSupport(c).touchdir(paths);
+	new IOSupport(c).write(info(),paths+"info");
 	}
 	public void outputlog(String name,String outputpath){
 		File f=new File(paths+name+".logdat");

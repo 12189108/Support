@@ -30,6 +30,30 @@ public final static String getMD5(String input){
 		}
 		return hex.toString().trim().toString();
 	}
+	public final static String get128MD5(String input){
+		MessageDigest md5=null;
+		try
+		{
+			md5 = MessageDigest.getInstance("MD5");
+		}
+		catch (NoSuchAlgorithmException e)
+		{e.printStackTrace();return null;}
+		char[] charry=input.toCharArray();
+		byte[] b=new byte[charry.length];
+		for(int i=0;i<charry.length;i++){
+			b[i]=(byte) charry[i];
+		}
+		byte[] md5byte=md5.digest(b);
+		StringBuffer hex=new StringBuffer();
+		for(int i=0;i<md5byte.length;i++){
+			int val=((int)md5byte[i])&0xff;
+			if(val<128){
+				hex.append("0");
+			}
+			hex.append(Integer.toHexString(val));
+		}
+		return hex.toString().trim().toString();
+	}
 	public final static String getStringRandom() {
 		int length=6;
 		String val = "";
