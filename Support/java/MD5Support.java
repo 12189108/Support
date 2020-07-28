@@ -107,6 +107,7 @@ public final static String getMD5(String input){
 		{}
 		catch (Throwable e)
 		{}
+//可能出现错误:使用equals是由于返回的是null，未初始化，出现空指针错误
 		return null;
 	}
 	public static String getString(Context c,byte[] b){
