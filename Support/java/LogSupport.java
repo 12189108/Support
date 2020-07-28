@@ -41,8 +41,7 @@ public class LogSupport
 		return new IOSupport(c).Read(paths+path+".logdat");
 	}
 	public void prepareFileDir(){
-	new IOSupport(c).touchdir("sdcard/log");
-	new IOSupport(c).touchdir(paths);
+	new File(paths).mkdirs();
 	new IOSupport(c).write(info(),paths+"info");
 	}
 	public void outputlog(String name,String outputpath){
