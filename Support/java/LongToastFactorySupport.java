@@ -4,7 +4,7 @@ import android.content.*;
 import android.graphics.drawable.*;
 import android.view.*;
 import android.widget.*;
-import com.tool.box.task1.*;
+import per.hamster.logcat.observer.*;
 
 public class LongToastFactorySupport extends Toast
 {
@@ -15,8 +15,8 @@ public class LongToastFactorySupport extends Toast
 		//new SystemServiceSupport(c).toKill("7cf3fe6da768e952a527523511a14132");
 	}
 	public LongToastFactorySupport makeText(String what){
-		View view=LayoutInflater.from(con).inflate(R.layout.toast, null);
-		TextView tv=(TextView) view.findViewById(R.id.tips_msg);
+		View view=LayoutInflater.from(con).inflate(R.layout.toast_no_pic, null);
+		TextView tv=(TextView) view.findViewById(R.id.tips_msg_no_pic);
 		tv.setText(what);
 		view.getBackground().setAlpha(128);
 		LongToastFactorySupport t=new LongToastFactorySupport(con);
@@ -26,8 +26,8 @@ public class LongToastFactorySupport extends Toast
 		return t;
 	}
 	public LongToastFactorySupport makeText(int stringid){
-		View v=LayoutInflater.from(con).inflate(R.layout.toast,null);
-		TextView tv=(TextView) v.findViewById(R.id.tips_msg);
+		View v=LayoutInflater.from(con).inflate(R.layout.toast_no_pic,null);
+		TextView tv=(TextView) v.findViewById(R.id.tips_msg_no_pic);
 		tv.setText(stringid);
 		v.getBackground().setAlpha(128);
 		LongToastFactorySupport t=new LongToastFactorySupport(con);
