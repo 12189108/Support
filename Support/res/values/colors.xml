@@ -55,6 +55,7 @@
 	<color name="bg_null">#00000000</color>
 	<color name="bg_bn_on">#3DA543</color>
 	<color name="bg_bn_nor">#2BCB3D</color>
+	<color name="bg">#FF1C1C1C</color>
 	<drawable name="text_on">#0006FF</drawable>
 	<drawable name="font_value">#585858</drawable>
 	<drawable name="texton">#ff66ccff</drawable>

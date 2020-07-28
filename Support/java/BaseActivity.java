@@ -70,6 +70,10 @@ public class BaseActivity extends Activity
 		FILL_PARENT=LinearLayout.LayoutParams.FILL_PARENT;
 		MATCH_PARENT=LinearLayout.LayoutParams.MATCH_PARENT;
 		//if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+		if(SystemServiceSupport.getSystemVersion()>=5){
+			getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_IMMERSIVE);
+			getWindow().setStatusBarColor(getResources().getColor(R.color.bg));
+		}
 		this.Context=context;
 		initfile();
 	}
