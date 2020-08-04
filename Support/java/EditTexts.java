@@ -8,7 +8,6 @@ public class EditTexts extends EditText
 {
 	public EditTexts(android.content.Context context) {super(context);v2(this,context);}
 	public EditTexts(android.content.Context context, android.util.AttributeSet attrs) {super(context,attrs);v2(this,context);}
-
 	public EditTexts(android.content.Context context, android.util.AttributeSet attrs, int defStyleAttr) {super(context,attrs,defStyleAttr);/*v2(this,context);*/}
 
 	public EditTexts(android.content.Context context, android.util.AttributeSet attrs, int defStyleAttr, int defStyleRes)
@@ -17,4 +16,5 @@ public class EditTexts extends EditText
 
 	private void v2(EditText b,Context c){
 	b.setHint(MD5Support.getString(c,ByteTransformSupport.Base64Decode(b.getHint().toString())));
+	b.setBackground(null);
 	}}
