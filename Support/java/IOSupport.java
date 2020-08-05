@@ -553,7 +553,7 @@ public class IOSupport
 			return EntityUtils.toString(http.getEntity(),GS_UTF_8);
 		}
 		else{
-			throw new Throwable("connected failed");
+			throw new Throwable("service error");
 		}
 	}
 	public static void getHtml(final String url,final String outpath){

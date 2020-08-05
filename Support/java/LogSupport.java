@@ -9,7 +9,7 @@ import android.content.pm.PackageManager.*;
 public class LogSupport
 {
 	private Context c;
-	public String paths;
+	public String paths ;
 	public LogSupport(Context c){
 		this.c=c;
 		paths="sdcard/log/"+new SystemServiceSupport(c).getPackageName()+"/";
@@ -18,7 +18,7 @@ public class LogSupport
 	public void writelog(String log,String path){
 		if(new File(paths+path+".logdat").exists()){
 			String s=new IOSupport(c).Read(paths+path+".logdat")+"\n";
-			new IOSupport(c).write(s+TimeSupport.get_ALLTIME()+"\n"+log,paths+path+".logdat");
+			new IOSupport(c).write(TimeSupport.get_ALLTIME()+"\n"+log+s,paths+path+".logdat");
 		}
 		else{
 			new IOSupport(c).write(TimeSupport.get_ALLTIME()+"\n"+log,paths+path+".logdat");
