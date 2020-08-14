@@ -1,9 +1,10 @@
 package Support;
+import android.content.*;
+import java.io.*;
 import java.security.*;
 import java.util.*;
-import android.content.*;
-import javax.crypto.spec.*;
 import javax.crypto.*;
+import javax.crypto.spec.*;
 public class MD5Support
 {
 public final static String getMD5(String input){
@@ -30,7 +31,27 @@ public final static String getMD5(String input){
 		}
 		return hex.toString().trim().toString();
 	}
-	public final static String get128MD5(String input){
+	public final static String getMD5(File file){
+		try
+		{
+			MessageDigest md5=MessageDigest.getInstance("MD5");
+			byte[] bb=ByteTransformSupport.File2Byte(file);
+			byte[] b=md5.digest(bb);
+			StringBuffer hex=new StringBuffer();
+			for (int i=0;i < b.length;i++)
+			{
+				int value=((int)b[i])&0xff;
+				if(value<16)hex.append("0");
+				hex.append(Integer.toHexString(value));
+			}
+			return  hex.toString().trim().toString();
+		}
+		catch (NoSuchAlgorithmException e)
+		{}
+		return null;
+	}
+	public final static String get128MD5(String input)
+{
 		MessageDigest md5=null;
 		try
 		{
@@ -107,7 +128,6 @@ public final static String getMD5(String input){
 		{}
 		catch (Throwable e)
 		{}
-//可能出现错误:使用equals是由于返回的是null，未初始化，出现空指针错误
 		return null;
 	}
 	public static String getString(Context c,byte[] b){
