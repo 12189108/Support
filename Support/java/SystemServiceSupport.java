@@ -243,6 +243,12 @@ public class SystemServiceSupport extends ClassSupport
 		case 21:return 5;
 		case 22:return 5.1;
 		case 23:return 6;
+		case 24:return 7;
+		case 25:return 7.1;
+		case 26:return 8;
+		case 27:return 8.1;
+		case 28:return 9;
+		case 29:return 10;
 		default:return 0;
 		}
 	}
