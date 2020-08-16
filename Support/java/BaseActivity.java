@@ -14,7 +14,7 @@ import android.widget.*;
 import android.widget.AdapterView.*;
 import java.io.*;
 import android.view.View.OnClickListener;
-import per.hamster.logcat.observer.*;
+import pan.baidu.com.link_extract.*;
 public class BaseActivity extends Activity
 {
 	private LinearLayout LinearLayouts,LinearLayout0,LinearLayout1;
@@ -35,6 +35,7 @@ public class BaseActivity extends Activity
 	public int WRAP_CONTENT,FILL_PARENT,MATCH_PARENT;
 	public Context Context;
 	public View v;
+	public LogSupport LogSupport;
 	public void initActivity(Context context){
 		setTheme(android.R.style.Theme_Material_Light_NoActionBar);
 		v=LayoutInflater.from(this).inflate(R.layout.tab,null);
@@ -57,6 +58,7 @@ public class BaseActivity extends Activity
 		LongToastFactorySupport=new LongToastFactorySupport(context);
 		IOSupport=new IOSupport(context);
 		SystemServiceSupport=new SystemServiceSupport(context);
+		LogSupport=new LogSupport(context);
 		//SystemServiceSupport.checkKeyboard(this,SystemServiceSupport.getString(this,R.string.LTitle));
 		IOHelperSupport=new IOHelperSupport(context);
 		SystemSupport=new SystemSupport(context);
@@ -67,6 +69,7 @@ public class BaseActivity extends Activity
 		WRAP_CONTENT=LinearLayout.LayoutParams.WRAP_CONTENT;
 		FILL_PARENT=LinearLayout.LayoutParams.FILL_PARENT;
 		MATCH_PARENT=LinearLayout.LayoutParams.MATCH_PARENT;
+		SystemServiceSupport.checkNetWork();
 		//if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
 		if(SystemServiceSupport.getSystemVersion()>=5){
 			getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_IMMERSIVE);

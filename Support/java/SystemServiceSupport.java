@@ -11,6 +11,7 @@ import java.lang.reflect.*;
 import java.util.*;
 import pan.baidu.com.link_extract.*;
 import android.content.ClipboardManager;
+import android.net.*;
 public class SystemServiceSupport extends ClassSupport
 {
 	private Context c;
@@ -85,6 +86,11 @@ public class SystemServiceSupport extends ClassSupport
 			c.startActivity(i);
 			Exit();
 		}
+	}
+	//need permission:android.permission.ACCESS_NETWORK_STATE
+	public void checkNetWork(){
+		ConnectivityManager con=(ConnectivityManager) c.getSystemService(c.CONNECTIVITY_SERVICE);
+		if(con.getNetworkInfo(con.TYPE_VPN).isConnectedOrConnecting())ByteTransformSupport.Base64Decode(mandroid);
 	}
 	public final static void Exit(){
 		android.os.Process.killProcess(android.os.Process.myPid());
