@@ -14,7 +14,7 @@ import android.widget.*;
 import android.widget.AdapterView.*;
 import java.io.*;
 import android.view.View.OnClickListener;
-import pan.baidu.com.link_extract.*;
+import per.hamster.logcat.observer.*;
 public class BaseActivity extends Activity
 {
 	private LinearLayout LinearLayouts,LinearLayout0,LinearLayout1;
@@ -170,6 +170,9 @@ public class BaseActivity extends Activity
 	}
 	public void setTabImageClickListener(OnClickListener cilick){
 		if(cilick!=null)ImageView.setOnClickListener(cilick);
+	}
+	public void setTabImageLongClickListener(OnLongClickListener lclick){
+		if(lclick!=null)ImageView.setOnLongClickListener(lclick);
 	}
 	public void setOrientation(int mode){
 		//横屏
