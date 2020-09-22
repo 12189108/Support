@@ -3,7 +3,8 @@
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:orientation="vertical"
 	android:layout_width="match_parent"
-	android:layout_height="match_parent">
+	android:layout_height="match_parent"
+	android:background="#FFFFFFFF">
 
 	<TextView
 		android:id="@+id/dialogeditTextView1"
@@ -12,12 +13,6 @@
 		android:layout_marginTop="10dp"
 		android:layout_marginBottom="10dp"
 		style="@style/DialogTitleTextStyle"/>
-
-	<ImageView
-		android:background="@color/round_corner_filter_green"
-		android:layout_width="match_parent"
-		android:layout_height="1dp"
-		android:layout_marginBottom="10dp"/>
 
 	<LinearLayout
 		android:orientation="horizontal"
@@ -34,19 +29,33 @@
 			android:id="@+id/dialogeditEditText1"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_marginRight="0dp"
-			style="@style/editstyle"/>
+			android:background="@drawable/under_line"
+			android:layout_marginRight="2dp"
+			style="@style/editstyle"
+			android:textColor="#FF000000"/>
 
 	</LinearLayout>
 
-	<Button
-		android:textColor="@color/round_corner_filter_green"
-		android:id="@+id/dialogeditButton1"
-		android:background="@drawable/only_3"
+	<View
+		android:background="?android:attr/dividerVertical"
 		android:layout_width="match_parent"
+		android:layout_height="1dp"/>
+
+	<LinearLayout
+		android:orientation="horizontal"
+		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_marginTop="10dp"
-		android:text="@string/yes"/>
+		android:layout_gravity="right">
+
+		<Support.Buttons
+			android:textColor="@color/round_corner_filter_green"
+			android:id="@+id/dialogeditButton1"
+			android:background="@drawable/dialogrightbuttom"
+			android:text="@string/yes"
+			style="@style/DialogButtonStyle"
+			android:layout_width="wrap_content"/>
+
+	</LinearLayout>
 
 </LinearLayout>
 
