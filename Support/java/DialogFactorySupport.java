@@ -9,7 +9,7 @@ import android.app.AlertDialog.*;
 import android.widget.LinearLayout.*;
 import android.widget.AdapterView.*;
 import java.util.*;
-import com.tool.box.task1.*;
+import safebox.radompwd.*;
 public class DialogFactorySupport extends ClassSupport
 {
 	//警告！此类存在问题:error会报NullPointerException错误，原因:oError未注册，如遇此类问题，请自行解决！！！！！！
@@ -279,7 +279,6 @@ public class DialogFactorySupport extends ClassSupport
 		TitleString.setText(Title);
 		MessaeString.setText(Message);
 		bnleft.setText(Button1);
-		bnleft.setBackgroundDrawable(con.getResources().getDrawable(R.drawable.only));
 		AlertDialog.Builder a=new AlertDialog.Builder(con);
 		a.setView(view);
 		a.setCancelable(candis);
@@ -308,7 +307,7 @@ public class DialogFactorySupport extends ClassSupport
 			bnright.setVisibility(View.GONE);
 			MessaeString.setText(Message);
 			bnleft.setText(Button1);
-			bnleft.setBackgroundDrawable(con.getResources().getDrawable(R.drawable.only));
+			
 			AlertDialog.Builder a=new AlertDialog.Builder(con);
 			a.setView(view);
 			a.setCancelable(candis);
@@ -331,7 +330,6 @@ public class DialogFactorySupport extends ClassSupport
 			TitleString.setText(Title);
 			MessaeString.setText(Message);
 			bnleft.setText(Button1);
-			bnleft.setBackgroundDrawable(con.getResources().getDrawable(R.drawable.only));
 			AlertDialog.Builder a=new AlertDialog.Builder(con);
 			a.setView(view);
 			a.setCancelable(candis);

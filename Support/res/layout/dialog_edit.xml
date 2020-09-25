@@ -6,13 +6,15 @@
 	android:layout_height="match_parent"
 	android:background="#FFFFFFFF">
 
-	<TextView
+	<Support.TextViews
 		android:id="@+id/dialogeditTextView1"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_marginTop="10dp"
+		android:textSize="19dp"
 		android:layout_marginBottom="10dp"
-		style="@style/DialogTitleTextStyle"/>
+		style="@style/DialogTitleTextStyle"
+		android:text="@string/first_use"/>
 
 	<LinearLayout
 		android:orientation="horizontal"
@@ -25,14 +27,16 @@
 			android:layout_height="match_parent"
 			android:text="  "/>
 
-		<EditText
+		<Support.EditTexts
 			android:id="@+id/dialogeditEditText1"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:background="@drawable/under_line"
-			android:layout_marginRight="2dp"
+			android:layout_marginRight="4dp"
 			style="@style/editstyle"
-			android:textColor="#FF000000"/>
+			android:hint="@string/num_require"
+			android:textColor="#FF000000"
+			android:inputType="textPassword"/>
 
 	</LinearLayout>
 
@@ -52,6 +56,7 @@
 			android:id="@+id/dialogeditButton1"
 			android:background="@drawable/dialogrightbuttom"
 			android:text="@string/yes"
+			android:enabled="false"
 			style="@style/DialogButtonStyle"
 			android:layout_width="wrap_content"/>
 

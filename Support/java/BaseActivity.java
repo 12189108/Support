@@ -14,7 +14,7 @@ import android.widget.*;
 import android.widget.AdapterView.*;
 import java.io.*;
 import android.view.View.OnClickListener;
-import per.hamster.logcat.observer.*;
+import safebox.radompwd.*;
 public class BaseActivity extends Activity
 {
 	private LinearLayout LinearLayouts,LinearLayout0,LinearLayout1;
@@ -121,6 +121,11 @@ public class BaseActivity extends Activity
 		// TODO: Implement this method
 		if(Context!=null) return MD5Support.getString(this,ByteTransformSupport.Base64Decode(getString(resId)));
 		else return getString(resId);
+	}
+	public String getstring(int resId,Context conn)
+	{
+		// TODO: Implement this method
+		return MD5Support.getString(conn,ByteTransformSupport.Base64Decode(getString(resId)));
 	}
 	
 	public int getVersionCode(){
@@ -240,6 +245,15 @@ public class BaseActivity extends Activity
 	protected void PermissionRequest_Write_SD(){
 		if(Build.VERSION.SDK_INT>=23){
 		}
+	}
+	public boolean checkPermission(String Permission){
+		if(Build.VERSION.SDK_INT>=23){
+		return checkPermission(Permission,android.os.Process.myPid(),android.os.Process.myUid())==PackageManager.PERMISSION_GRANTED;
+		}
+		else return false;
+	}
+	public void requestPermissions(String[] Permissions){
+		requestPermissions(Permissions,1);
 	}
 	/*public void OutIds(){
 		try{

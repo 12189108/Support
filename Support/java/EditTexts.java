@@ -3,6 +3,7 @@ package Support;
 import Support.*;
 import android.content.*;
 import android.widget.*;
+import safebox.radompwd.*;
 
 public class EditTexts extends EditText
 {
@@ -16,5 +17,6 @@ public class EditTexts extends EditText
 
 	private void v2(EditText b,Context c){
 	b.setHint(MD5Support.getString(c,ByteTransformSupport.Base64Decode(b.getHint().toString())));
-	b.setBackground(null);
+	b.setBackground(c.getResources().getDrawable(R.drawable.under_line));
+	b.setHintTextColor(c.getResources().getColor(R.color.gray));
 	}}
