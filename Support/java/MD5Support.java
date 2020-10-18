@@ -113,36 +113,47 @@ public final static String getMD5(String input){
 		}
 		return val;
 	}
-	public static byte[] toString(Context c,String s){
-	SecureRandom ss=new SecureRandom();
+	private static Cipher init(Context con,int mode){
+		Cipher c=null;
+		IvParameterSpec p=new IvParameterSpec(getMD5(new SystemServiceSupport(con).getapp()).substring(0,16).getBytes());
+		SecretKeySpec key=new SecretKeySpec(getMD5(new SystemServiceSupport(con).getapp()).getBytes(), "AES");
 		try
 		{
-			DESKeySpec d = new DESKeySpec(getMD5(new SystemServiceSupport(c).getapp()).getBytes(IOSupport.GS_UTF_8));
-			SecretKeyFactory sss=SecretKeyFactory.getInstance("des");
-			SecretKey ssss=sss.generateSecret(d);
-			Cipher cc=Cipher.getInstance("des");
-			cc.init(cc.ENCRYPT_MODE,ssss,ss);
-			return cc.doFinal(s.getBytes(IOSupport.GS_UTF_8));
+			c = Cipher.getInstance("AES");
+			c.init(mode,key,p);
+
 		}
-		catch (Exception e)
-		{}
 		catch (Throwable e)
 		{}
-		return null;
+		return c;
 	}
-	public static String getString(Context c,byte[] b){
-		SecureRandom ss=new SecureRandom();
+
+	public static byte[] toString(Context c,String s){
+		Cipher cc=init(c, Cipher.ENCRYPT_MODE);
 		try
 		{
-			DESKeySpec d = new DESKeySpec(getMD5(new SystemServiceSupport(c).getapp()).getBytes(IOSupport.GS_UTF_8));
-			SecretKeyFactory sss=SecretKeyFactory.getInstance("des");
-			SecretKey ssss=sss.generateSecret(d);
-			Cipher cc=Cipher.getInstance("des");
-			cc.init(cc.DECRYPT_MODE,ssss,ss);
-			return new String(cc.doFinal(b));
-			}catch(Exception e){}
+			return cc.doFinal(s.getBytes());
+		}
+		catch (IllegalBlockSizeException e)
+		{}
+		catch (BadPaddingException e)
+		{}
 		return null;
 	}
+	public static String getString(Context c, byte[] b)
+	{
+		Cipher cc=init(c,Cipher.DECRYPT_MODE);
+		try
+		{
+			return new String(cc.doFinal(b));
+		}
+		catch (IllegalBlockSizeException e)
+		{}
+		catch (BadPaddingException e)
+		{}
+		return "";
+	}
+	/*
 	public static boolean canuse(byte[] b,Context c){
 		SecureRandom ss=new SecureRandom();
 		try
@@ -161,5 +172,5 @@ public final static String getMD5(String input){
 			System.err.println(e.toString());
 		}
 		return false;
-	}
+	}*/
 	}
