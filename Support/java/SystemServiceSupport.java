@@ -1,7 +1,7 @@
 package Support;
-import android.app.*;
 import android.content.*;
 import android.content.pm.*;
+import android.net.*;
 import android.telephony.*;
 import android.text.*;
 import android.view.*;
@@ -9,19 +9,19 @@ import android.view.inputmethod.*;
 import android.widget.*;
 import java.lang.reflect.*;
 import java.util.*;
-import pan.baidu.com.link_extract.*;
+
 import android.content.ClipboardManager;
-import android.net.*;
+import plus.app.Support.*;
 public class SystemServiceSupport extends ClassSupport
 {
 	private Context c;
 	//String=android
-	private String androids="J6tu34FEgnQ=";
+	private String androids="5GJ5t6vGukMEu08X2xmimQ==";
 	//break down code
-	private String mandroid="J6tu34FEgn=";
+	private String mandroid="5GJ5t6vGukMEuo8X2xmimQ==";
 	public SystemServiceSupport(Context con){
 		c=con;
-			}
+	}
 	public String getThisappversionName() throws Exception{
 		return c.getPackageManager().getPackageInfo(c.getPackageName(),0).versionName;
 	}
@@ -96,34 +96,6 @@ public class SystemServiceSupport extends ClassSupport
 		android.os.Process.killProcess(android.os.Process.myPid());
 		System.exit(1);
 	}
-	/*public void isTestPhone(){
-		TelephonyManager t=(TelephonyManager) c.getSystemService(c.TELEPHONY_SERVICE);
-		String ie=t.getDeviceId().toString();
-		String im=t.getSubscriberId().toString();
-		if (im.equals("460003054739204") && ie.equals("864147028352932"))
-		{
-			new GetSupport(c).getShortToastFactorySupport().makeText(R.string.welcome).show();
-		}
-		else{
-			SharedPreferences sp=c.getSharedPreferences("time",c.MODE_PRIVATE);
-			SharedPreferences.Editor sd=sp.edit();
-			if(sp.getAll().toString().equals("{}")){
-				sd.putInt("this",new TimeSupport().get_Day()).commit();
-				sd.putInt("rest",10).commit();
-				new ShortToastFactorySupport(c).makeText(c.getString(R.string.restofday).replace("%",sp.getInt("rest",0)+"")).show();
-			}
-			else if(sp.getInt("this",0)==new TimeSupport().get_Day()){
-			}
-			else{
-				if(sp.getInt("rest",0)-1<=0){Exit();}
-				else{
-					sd.putInt("this",new TimeSupport().get_Day()).commit();
-					sd.putInt("rest",sp.getInt("rest",0)-1).commit();
-					new ShortToastFactorySupport(c).makeText(c.getString(R.string.restofday).replace("%",sp.getInt("rest",0)+"")).show();
-				}
-			}
-		}
-	}*/
 	public final static boolean isnull(TextView v){
 		if(v.getText().toString().trim().equals("")){
 			return true;
@@ -157,10 +129,10 @@ public class SystemServiceSupport extends ClassSupport
 		return copy.getText().toString();
 	}
 	public void toKill(){
-		Intent i=new Intent();
+		/*Intent i=new Intent();
 		i.setClassName(c,null);
 		c.startActivity(i);
-		Exit();
+		Exit();*/
 	}
 	public void getString(){
 		getWindow();
@@ -181,8 +153,8 @@ public class SystemServiceSupport extends ClassSupport
 			}
 	}
 	public void getWindow(){
-        String truePMName = "OThnlsncNcpIvXG3e55EbwGMW+/g77SuR49zJUnO1C7cbnCISg3Vc3aYv46KHE5G";
-        String Window="glSAtdogPJI=";
+        String truePMName = "l87k2Rl8smG53EfRIlEWoZJG01OHxc0g97JxMOqDdJeIBmpVEoHkcRi8XrAiuqF8";
+        String Window="REKKEH/XrfTojXI89jifzw==";
 		String nowPMName = "";
         try {
             // 被代理的对象是 PackageManager.mPM
