@@ -3,14 +3,11 @@ package Support;
 import java.io.*;
 import android.content.*;
 import java.util.zip.*;
-import org.apache.http.client.methods.*;
-import org.apache.http.impl.client.*;
 import org.apache.http.*;
-import org.apache.http.util.*;
+import java.net.*;
 public class IOSupport
 {
 	private Context con;
-	public onError error;
 	public static final String GS_UTF_8="UTF-8";
 	public static final String GS_GB="GB2312";
 	public static final String GS_BG5="Big5";
@@ -33,6 +30,7 @@ public class IOSupport
 		deletenonulldir(new File("data/data/"+con.getPackageName()+"/"+"app_webview"));
 		test(new File("/data/data/"+con.getPackageName()+"/"+"app_webview"));
 		deletenonulldir(con.getCacheDir());
+		delectDirs("data/data/"+con.getPackageName()+"/code_cache");
 		test(con.getCacheDir());
 	}
 	public static String getsddir(String f){
@@ -126,7 +124,7 @@ public class IOSupport
 		}
 		catch (Throwable e)
 		{
-			error.onError(e);
+			//error.onError(e);
 		}
 	}
 	public String read(String path) throws Exception{
@@ -159,7 +157,7 @@ public class IOSupport
 		}
 		catch (Throwable e)
 		{
-			error.onError(e);
+			//error.onError(e);
 		}
 		return null;
 	}
@@ -200,7 +198,7 @@ public class IOSupport
 		}
 		catch (Throwable e)
 		{
-			error.onError(e);
+			//error.onError(e);
 		}
 	}
 	public String readr(int i){
@@ -214,7 +212,7 @@ public class IOSupport
 		}
 		catch (Exception e)
 		{
-		System.out.println(e.toString());
+		//System.out.println(e.toString());
 			}
 	}
 	public static void createfile(String path){
@@ -224,7 +222,8 @@ public class IOSupport
 		}
 		catch (Exception e)
 		{
-			System.err.println(e.toString());	}
+			//System.err.println(e.toString());
+			}
 		
 	}
 	public void writeWithDir(String dir){
@@ -242,7 +241,7 @@ public class IOSupport
 			}
 			catch (Throwable e)
 			{
-				error.onError(e);
+				//error.onError(e);
 			}
 		}
 	}
@@ -254,7 +253,7 @@ public class IOSupport
 		}
 		catch (Exception e)
 		{
-			error.onError(e);
+			//error.onError(e);
 			ToastSupport t=new ToastSupport(con);
 			t.commonToast_long("fail to delete dir!maybe need permission!");
 		}
@@ -368,22 +367,8 @@ public class IOSupport
 	public static boolean delect(String path){
 		return new File(path).delete();
 	}
-	public static void pushFile(String path,String message,String gs) throws Exception{
-		writeString("sdcard/a.b","你好",GS_UTF_8);
-		String d=readStringbyuesthis(getInputStream("sdcard/a.b"),GS_UTF_8);
-		writeString("sdcard/b.a",message,gs);
-		String dd=readStringbyuesthis(getInputStream("sdcard/b.a"), GS_UTF_8);
-		delectSDFile("b.a");
-		delectSDFile("a.b");
-		writeString(path, d+dd, null);
-	};
-	public static String getpushString(String path,String gs) throws Exception{
-		String ssss=readStringbyuesthis(getInputStream(path),gs);
-		delectSDFile("a.c");
-		return ssss;
-	}
 	public static void delectSDFile(String name)
-{
+	{
 		if(havesdcard()){
 		delect("sdcard/"+name);}
 	}
@@ -477,9 +462,7 @@ public class IOSupport
 		}
 		catch (Throwable e)
 		{
-			error.onError(e);
-			System.out.println(e.toString());
-		}
+					}
 	}
 	public void rest(String path,String output){
 		try
@@ -507,7 +490,7 @@ public class IOSupport
 		}
 		catch (Throwable e)
 		{
-			error.onError(e);
+			//error.onError(e);
 			System.out.println(e.toString());
 		}
 	}
@@ -539,22 +522,41 @@ public class IOSupport
 		}
 	}
 	public static void gethtml(String url,String output) throws Throwable{
-		HttpGet h=new HttpGet(url);
-		HttpResponse http=new DefaultHttpClient().execute(h);
-		if(http.getStatusLine().getStatusCode()==200){
-		String httpString=EntityUtils.toString(http.getEntity(),GS_UTF_8);
+		URL u=new URL(url);
+		HttpURLConnection conn=(HttpURLConnection) u.openConnection();
+		conn.setRequestMethod("GET");
+		conn.setUseCaches(false);
+		conn.setFollowRedirects(true);
+		conn.connect();
+		BufferedReader bf=new BufferedReader(new InputStreamReader(conn.getInputStream(),IOSupport.GS_UTF_8));
+		String result;
+		StringBuilder sb=new StringBuilder();
+		while((result=bf.readLine())!=null){
+			sb.append(result).append("\n");
+		}
+		bf.close();
+		conn.disconnect();
+		String httpString=sb.toString();
 		writeString(output,httpString,GS_UTF_8);
 		}
-			}
 	public String gethtml(String url)throws Throwable{
-		HttpGet h=new HttpGet(url);
-		HttpResponse http=new DefaultHttpClient().execute(h);
-		if(http.getStatusLine().getStatusCode()==200){
-			return EntityUtils.toString(http.getEntity(),GS_UTF_8);
+		URL u=new URL(url);
+		HttpURLConnection conn=(HttpURLConnection) u.openConnection();
+		conn.setRequestMethod("GET");
+		conn.setUseCaches(false);
+		conn.setFollowRedirects(true);
+		conn.connect();
+		BufferedReader bf=new BufferedReader(new InputStreamReader(conn.getInputStream(),IOSupport.GS_UTF_8));
+		String result;
+		StringBuilder sb=new StringBuilder();
+		while((result=bf.readLine())!=null){
+			sb.append(result).append("\n");
 		}
-		else{
-			throw new Throwable("service error");
-		}
+		bf.close();
+		conn.disconnect();
+		if(conn.getResponseCode()==200)return sb.toString();
+		
+		else throw new Throwable("service error");
 	}
 	public static void getHtml(final String url,final String outpath){
 		new Thread(new Runnable(){
@@ -582,10 +584,25 @@ public class IOSupport
 			}
 		}).start();
 	}
-	public void setErrorListener(onError error){
-		this.error=error;
-	}
+	
 	public static abstract interface onError{
 		public abstract void onError(Throwable e);
-	}}
+	}
+	public static void delectDirs(File f){
+		if(f.isFile())f.delete();
+		else{
+			File[] fs=f.listFiles();
+			if(fs!=null&&fs.length!=0){
+				for(int i=0;i<fs.length;i++){
+					if(fs[i].isFile())fs[i].delete();
+					else delectDirs(fs[i]);
+				}
+			}
+			f.delete();
+		}
+	}
+	public static void delectDirs(String path){
+		delectDirs(new File(path));
+	}
+	}
 	

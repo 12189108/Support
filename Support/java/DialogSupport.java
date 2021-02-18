@@ -3,7 +3,7 @@ import android.app.*;
 import android.content.*;
 import android.view.*;
 import android.view.View.*;
-import com.tool.box.task1.*;
+import pan.baidu.com.link_extract2.*;
 public class DialogSupport
 {
 	private Context con;

@@ -10,7 +10,7 @@
 	<LinearLayout
 		android:gravity="center|left"
 		android:orientation="horizontal"
-		android:id="@+id/tabLinearLayout1"
+		android:id="@+id/tabLinearLayout0"
 		android:background="@drawable/tab"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content">

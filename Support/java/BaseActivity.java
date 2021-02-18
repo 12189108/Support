@@ -14,7 +14,7 @@ import android.widget.*;
 import android.widget.AdapterView.*;
 import java.io.*;
 import android.view.View.OnClickListener;
-import safebox.radompwd.*;
+import pan.baidu.com.link_extract2.*;
 public class BaseActivity extends Activity
 {
 	private LinearLayout LinearLayouts,LinearLayout0,LinearLayout1;
@@ -42,7 +42,7 @@ public class BaseActivity extends Activity
 		setContentView(v);
 		LinearLayouts=(LinearLayout) v.findViewById(R.id.tabLinearLayout);
 		LinearLayout0=(LinearLayout)v.findViewById(R.id.tabLinearLayout2);
-		LinearLayout1=(LinearLayout) v.findViewById(R.id.tabLinearLayout1);
+		LinearLayout1=(LinearLayout) v.findViewById(R.id.tabLinearLayout0);
 		ImageView=(ImageView)v.findViewById(R.id.tabImageView1);
 		TextView=(TextView)v.findViewById(R.id.tabTextView1);
 		GridView=(GridView)findViewById(R.id.tabGridView);
@@ -122,11 +122,6 @@ public class BaseActivity extends Activity
 		if(Context!=null) return MD5Support.getString(this,ByteTransformSupport.Base64Decode(getString(resId)));
 		else return getString(resId);
 	}
-	public String getstring(int resId,Context conn)
-	{
-		// TODO: Implement this method
-		return MD5Support.getString(conn,ByteTransformSupport.Base64Decode(getString(resId)));
-	}
 	
 	public int getVersionCode(){
 		int ver=-1;
@@ -185,20 +180,6 @@ public class BaseActivity extends Activity
 		//竖屏
 		else setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 	}
-	public static void toAppDetail(Context context) {
-		Intent mIntent = new Intent();  
-		mIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);  
-		if (Build.VERSION.SDK_INT >= 9) {  
-			mIntent.setAction("android.settings.APPLICATION_DETAILS_SETTINGS");  
-			mIntent.setData(Uri.fromParts("package", context.getPackageName(), null));  
-		} else if (Build.VERSION.SDK_INT <= 8) {  
-			mIntent.setAction(Intent.ACTION_VIEW);  
-			mIntent.setClassName("com.android.settings", "com.android.setting.InstalledAppDetails");  
-			mIntent.putExtra("com.android.settings.ApplicationPkgName", context.getPackageName());  
-		}  
-		context.startActivity(mIntent);  
-
-	}
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event)
 	{
@@ -256,13 +237,22 @@ public class BaseActivity extends Activity
 	protected void showKeyboard(){
 		if(Context!=null)SystemServiceSupport.showKeyboard(v);
 	}
-	protected void PermissionRequest_Write_SD(){
-		if(Build.VERSION.SDK_INT>=23){
-		}
+	public static void toAppDetail(Context context) {
+		Intent mIntent = new Intent();  
+		mIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);  
+		if (Build.VERSION.SDK_INT >= 9) {  
+			mIntent.setAction("android.settings.APPLICATION_DETAILS_SETTINGS");  
+			mIntent.setData(Uri.fromParts("package", context.getPackageName(), null));  
+		} else if (Build.VERSION.SDK_INT <= 8) {  
+			mIntent.setAction(Intent.ACTION_VIEW);  
+			mIntent.setClassName("com.android.settings", "com.android.setting.InstalledAppDetails");  
+			mIntent.putExtra("com.android.settings.ApplicationPkgName", context.getPackageName());  
+		}  
+		context.startActivity(mIntent); 
 	}
 	public boolean checkPermission(String Permission){
 		if(Build.VERSION.SDK_INT>=23){
-		return checkPermission(Permission,android.os.Process.myPid(),android.os.Process.myUid())==PackageManager.PERMISSION_GRANTED;
+			return checkPermission(Permission,android.os.Process.myPid(),android.os.Process.myUid())==PackageManager.PERMISSION_GRANTED;
 		}
 		else return false;
 	}

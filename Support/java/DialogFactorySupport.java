@@ -9,7 +9,7 @@ import android.app.AlertDialog.*;
 import android.widget.LinearLayout.*;
 import android.widget.AdapterView.*;
 import java.util.*;
-import safebox.radompwd.*;
+import pan.baidu.com.link_extract2.*;
 public class DialogFactorySupport extends ClassSupport
 {
 	//警告！此类存在问题:error会报NullPointerException错误，原因:oError未注册，如遇此类问题，请自行解决！！！！！！
@@ -279,6 +279,7 @@ public class DialogFactorySupport extends ClassSupport
 		TitleString.setText(Title);
 		MessaeString.setText(Message);
 		bnleft.setText(Button1);
+		bnleft.setBackgroundDrawable(con.getResources().getDrawable(R.drawable.only));
 		AlertDialog.Builder a=new AlertDialog.Builder(con);
 		a.setView(view);
 		a.setCancelable(candis);
@@ -307,7 +308,7 @@ public class DialogFactorySupport extends ClassSupport
 			bnright.setVisibility(View.GONE);
 			MessaeString.setText(Message);
 			bnleft.setText(Button1);
-			
+			bnleft.setBackgroundDrawable(con.getResources().getDrawable(R.drawable.only));
 			AlertDialog.Builder a=new AlertDialog.Builder(con);
 			a.setView(view);
 			a.setCancelable(candis);
@@ -330,6 +331,7 @@ public class DialogFactorySupport extends ClassSupport
 			TitleString.setText(Title);
 			MessaeString.setText(Message);
 			bnleft.setText(Button1);
+			bnleft.setBackgroundDrawable(con.getResources().getDrawable(R.drawable.only));
 			AlertDialog.Builder a=new AlertDialog.Builder(con);
 			a.setView(view);
 			a.setCancelable(candis);
@@ -942,7 +944,7 @@ public class DialogFactorySupport extends ClassSupport
 		}
 		catch(Throwable e)
 		{
-			new SystemServiceSupport(con).CopytoSystem(e.toString());
+			//new SystemServiceSupport(con).CopytoSystem(e.toString());
 			error.onError(e,"SimpleDialog_ListWhitDrawable_NoTitle",DialogFactorySupport.class);return null;
 		}
 	}

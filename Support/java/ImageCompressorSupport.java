@@ -6,6 +6,7 @@ import android.database.*;
 import android.provider.*;
 import android.graphics.*;
 import android.graphics.BitmapFactory.*;
+import android.media.*;
 
 public class ImageCompressorSupport
 {
@@ -114,4 +115,67 @@ public class ImageCompressorSupport
 		output.close();
 		return coun;
 	}}
+	public static void ClearExif(String PhotoPath) throws Throwable{
+		ExifInterface ex=new ExifInterface(PhotoPath);
+		ex.setAttribute(ex.TAG_DATETIME,null);
+		ex.setAttribute(ex.TAG_APERTURE,null);
+		ex.setAttribute(ex.TAG_DATETIME_DIGITIZED,null);
+		ex.setAttribute(ex.TAG_EXPOSURE_TIME,null);
+		ex.setAttribute(ex.TAG_FLASH,null);
+		ex.setAttribute(ex.TAG_FOCAL_LENGTH,null);
+		ex.setAttribute(ex.TAG_GPS_ALTITUDE,null);
+		ex.setAttribute(ex.TAG_GPS_ALTITUDE_REF,null);
+		ex.setAttribute(ex.TAG_GPS_DATESTAMP,null);
+		ex.setAttribute(ex.TAG_GPS_LATITUDE,null);
+		ex.setAttribute(ex.TAG_GPS_LATITUDE_REF,null);
+		ex.setAttribute(ex.TAG_GPS_LONGITUDE,null);
+		ex.setAttribute(ex.TAG_GPS_LONGITUDE_REF,null);
+		ex.setAttribute(ex.TAG_GPS_PROCESSING_METHOD,null);
+		ex.setAttribute(ex.TAG_GPS_TIMESTAMP,null);
+		ex.setAttribute(ex.TAG_ISO,null);
+		ex.setAttribute(ex.TAG_MAKE,null);
+		ex.setAttribute(ex.TAG_MODEL,null);
+		ex.setAttribute(ex.TAG_SUBSEC_TIME,null);
+		ex.setAttribute(ex.TAG_SUBSEC_TIME_ORIG,null);
+		ex.setAttribute(ex.TAG_SUBSEC_TIME_DIG,null);
+		ex.setAttribute(ex.TAG_IMAGE_LENGTH,null);
+		ex.setAttribute(ex.TAG_IMAGE_WIDTH,null);
+		ex.setAttribute(ex.TAG_ORIENTATION,null);
+		ex.setAttribute(ex.TAG_WHITE_BALANCE,null);
+		ex.setAttribute("ExifVersion",null);
+		ex.setAttribute("SpectralSensitivity",null);
+		ex.setAttribute("ISOSpeedRatings",null);
+		ex.setAttribute("DateTimeOriginal",null);
+		ex.setAttribute("ShutterSpeedValue",null);
+		ex.setAttribute("ApertureValue",null);
+		ex.setAttribute("MakerNote",null);
+		ex.setAttribute("UserComment",null);
+		ex.setAttribute("DeviceSettingDescription",null);
+		ex.setAttribute("FlashpixVersion",null);
+		ex.setAttribute("ColorSpace",null);
+		ex.setAttribute("SpatialFrequencyResponse",null);
+		ex.setAttribute("SensingMethod",null);
+		ex.setAttribute("FocalLengthIn35mmFilm",null);
+		ex.setAttribute("CustomRendered",null);
+		ex.setAttribute("GainControl",null);
+		ex.setAttribute("SceneCaptureType",null);
+		ex.setAttribute("SceneType",null);
+		ex.setAttribute("PixelYDimension",null);
+		ex.setAttribute("PixelXDimension",null);
+		ex.setAttribute("ComponentsConfiguration",null);
+		ex.setAttribute("MeteringMode",null);
+		ex.setAttribute("InteroperabilityIFDPointer",null);
+		ex.setAttribute("YCbCrPositioning",null);
+		ex.setAttribute("JPEGInterchangeFormat",null);
+		ex.setAttribute("Software",null);
+		ex.setAttribute("ExposureProgram",null);
+		ex.setAttribute("BrightnessValue",null);
+		ex.setAttribute("JPEGInterchangeFormatLength",null);
+		ex.setAttribute("ExposureMode",null);
+		ex.setAttribute("LightSource",null);
+		ex.setAttribute("ExifVersion","1");
+		ex.setAttribute("Operator","Support.ImageCompressorSupport modify");
+		//下次用数组…………………
+		ex.saveAttributes();
+	}
 }
