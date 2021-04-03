@@ -4,7 +4,6 @@ import java.io.*;
 import android.content.*;
 import java.util.zip.*;
 import org.apache.http.*;
-import java.net.*;
 public class IOSupport
 {
 	private Context con;
@@ -521,70 +520,6 @@ public class IOSupport
 			}
 		}
 	}
-	public static void gethtml(String url,String output) throws Throwable{
-		URL u=new URL(url);
-		HttpURLConnection conn=(HttpURLConnection) u.openConnection();
-		conn.setRequestMethod("GET");
-		conn.setUseCaches(false);
-		conn.setFollowRedirects(true);
-		conn.connect();
-		BufferedReader bf=new BufferedReader(new InputStreamReader(conn.getInputStream(),IOSupport.GS_UTF_8));
-		String result;
-		StringBuilder sb=new StringBuilder();
-		while((result=bf.readLine())!=null){
-			sb.append(result).append("\n");
-		}
-		bf.close();
-		conn.disconnect();
-		String httpString=sb.toString();
-		writeString(output,httpString,GS_UTF_8);
-		}
-	public String gethtml(String url)throws Throwable{
-		URL u=new URL(url);
-		HttpURLConnection conn=(HttpURLConnection) u.openConnection();
-		conn.setRequestMethod("GET");
-		conn.setUseCaches(false);
-		conn.setFollowRedirects(true);
-		conn.connect();
-		BufferedReader bf=new BufferedReader(new InputStreamReader(conn.getInputStream(),IOSupport.GS_UTF_8));
-		String result;
-		StringBuilder sb=new StringBuilder();
-		while((result=bf.readLine())!=null){
-			sb.append(result).append("\n");
-		}
-		bf.close();
-		conn.disconnect();
-		if(conn.getResponseCode()==200)return sb.toString();
-		
-		else throw new Throwable("service error");
-	}
-	public static void getHtml(final String url,final String outpath){
-		new Thread(new Runnable(){
-
-			@Override
-			public void run()
-			{
-				try
-				{
-					gethtml(url, outpath);
-				}
-				catch (Throwable e)
-				{
-					System.out.println(e.toString());
-					try
-					{
-						writeString("sdcard/aaa.log", e.toString(),GS_UTF_8);
-
-					}
-					catch (Exception ee)
-					{
-						
-					}}
-				// TODO: Implement this method
-			}
-		}).start();
-	}
-	
 	public static abstract interface onError{
 		public abstract void onError(Throwable e);
 	}
