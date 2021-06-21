@@ -61,14 +61,6 @@ public class DownloadSupport
 	}
 	public void stopDownload(){
 		stop=true;
-		String start="",end="";
-		for(int i=0;i<startPosition.length;i++){
-			start=start+startPosition[i]+",";
-		}
-		for(int i=0;i<endPosition.length;i++){
-			end=end+endPosition[i]+",";
-		}
-		new SystemServiceSupport(mContext).CopytoSystem("start:"+start+"\nend:"+end);
 	}
 	private void initConfig(){
 		try {
