@@ -3,7 +3,6 @@ package Support;
 import android.app.*;
 import android.content.*;
 import android.content.pm.*;
-import android.content.res.*;
 import android.graphics.*;
 import android.graphics.drawable.*;
 import android.net.*;
@@ -14,7 +13,8 @@ import android.widget.*;
 import android.widget.AdapterView.*;
 import java.io.*;
 import android.view.View.OnClickListener;
-import pan.baidu.com.link_extract2.*;
+import waste.time.yuketang.R;
+
 public class BaseActivity extends Activity
 {
 	private LinearLayout LinearLayouts,LinearLayout0,LinearLayout1;
@@ -30,9 +30,8 @@ public class BaseActivity extends Activity
 	public IOHelperSupport IOHelperSupport;
 	public SystemSupport SystemSupport;
 	public SystemServiceSupport SystemServiceSupport;
-	public ServiceSupport ServiceSupport;
 	public SharedPreferencesSupport SharedPreferencesSupport;
-	public int WRAP_CONTENT,FILL_PARENT,MATCH_PARENT;
+	public int WRAP_CONTENT,MATCH_PARENT;
 	public Context Context;
 	public View v;
 	public LogSupport LogSupport;
@@ -40,19 +39,19 @@ public class BaseActivity extends Activity
 		setTheme(android.R.style.Theme_Material_Light_NoActionBar);
 		v=LayoutInflater.from(this).inflate(R.layout.tab,null);
 		setContentView(v);
-		LinearLayouts=(LinearLayout) v.findViewById(R.id.tabLinearLayout);
-		LinearLayout0=(LinearLayout)v.findViewById(R.id.tabLinearLayout2);
-		LinearLayout1=(LinearLayout) v.findViewById(R.id.tabLinearLayout0);
-		ImageView=(ImageView)v.findViewById(R.id.tabImageView1);
-		TextView=(TextView)v.findViewById(R.id.tabTextView1);
-		GridView=(GridView)findViewById(R.id.tabGridView);
+		LinearLayouts=v.findViewById(R.id.tabLinearLayout);
+		LinearLayout0= v.findViewById(R.id.tabLinearLayout2);
+		LinearLayout1= v.findViewById(R.id.tabLinearLayout0);
+		ImageView=v.findViewById(R.id.tabImageView1);
+		TextView=v.findViewById(R.id.tabTextView1);
+		GridView=findViewById(R.id.tabGridView);
 		LinearLayout.LayoutParams ll=new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,(int)(new SystemServiceSupport(this).getWindowHight()*0.073125));
 		LinearLayout1.setLayoutParams(ll);
 		new SystemServiceSupport(context).getString();
 		setTabImage(getPackageIcon());
 		setTabTitle(getAppName());
 		DialogFactorySupport=new DialogFactorySupport(context);
-		NetSecurity();
+		//NetSecurity();
 		ShortToastFactorySupport=new ShortToastFactorySupport(context);
 		DialogSupport=new DialogSupport(context);
 		LongToastFactorySupport=new LongToastFactorySupport(context);
@@ -62,21 +61,26 @@ public class BaseActivity extends Activity
 		//SystemServiceSupport.checkKeyboard(this,SystemServiceSupport.getString(this,R.string.LTitle));
 		IOHelperSupport=new IOHelperSupport(context);
 		SystemSupport=new SystemSupport(context);
-		ServiceSupport=new ServiceSupport();
 		DeviceSupport=new DeviceSupport(context);
 		SystemServiceSupport.getProcess();
 		SharedPreferencesSupport=new SharedPreferencesSupport(context);
 		WRAP_CONTENT=LinearLayout.LayoutParams.WRAP_CONTENT;
-		FILL_PARENT=LinearLayout.LayoutParams.FILL_PARENT;
 		MATCH_PARENT=LinearLayout.LayoutParams.MATCH_PARENT;
-		SystemServiceSupport.checkNetWork();
-		//if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+		//SystemServiceSupport.checkNetWork();
+		//if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITAT)getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
 		if(SystemServiceSupport.getSystemVersion()>=5){
 			getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_IMMERSIVE);
 			getWindow().setStatusBarColor(getResources().getColor(R.color.bg));
 		}
 		this.Context=context;
 		initfile();
+	}
+	public void setBarColor(int color){
+		if(Context!=null) LinearLayout0.setBackgroundColor(color);
+		if(SystemServiceSupport.getSystemVersion()>=5){
+			getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_IMMERSIVE);
+			getWindow().setStatusBarColor(color);
+		}
 	}
 	public View setContentView(int layoutResID,int w,int h)
 	{
@@ -259,23 +263,7 @@ public class BaseActivity extends Activity
 	public void requestPermissions(String[] Permissions){
 		requestPermissions(Permissions,1);
 	}
-	/*public void OutIds(){
-		try{
-		JSONObject js=new JSONObject();
-		js.put("R.layout.dialog",R.layout.dialog);
-		js.put("R.layout.dialog_edit",R.layout.dialog_edit);
-		js.put("R.layout.dialog_list",R.layout.dialog_list);
-		js.put("R.layout.dialog_list_adper",R.layout.dialog_list_adper);
-		js.put("R.layout.dialog_list_drawable",R.layout.dialog_list_drawable);
-		js.put("R.layout.dialog_message",R.layout.dialog_message);
-		js.put("R.layout.dialog_progress",R.layout.dialog_progress);
-		js.put("R.layout.tab",R.layout.tab);
-		js.put("R.layout.to_top",R.layout.to_top);
-		js.put("R.layout.toast",R.layout.toast);
-		js.put("R.drawable.back",R.drawable.back);
-		js.put("R.drawable.bn_back",R.drawable.bn_back);
-		}catch(Throwable t){}
-	}*/
+
 	public static interface onMenuClickListener{
 		public void onMenuClickListener(int menu);
 	}
