@@ -23,27 +23,27 @@ public class HttpSupport
 		return this;
 	}
 	public HttpSupport AttachCookie(String Cookie){
-		if(Cookie!=null)conn.setRequestProperty("Cookie",Cookie);
+		if(Cookie!=null)conn.addRequestProperty("Cookie",Cookie);
 		return this;
 	}
 	
 	public HttpSupport AttachContent_type(String content_type){
-		if(content_type!=null)conn.setRequestProperty("Content-Type",content_type);
+		if(content_type!=null)conn.addRequestProperty("Content-Type",content_type);
 		return this;
 	}
 	
 	public HttpSupport AttachUser_Agent(String User_Agent){
-		if(User_Agent!=null)conn.setRequestProperty("User-Agent",User_Agent);
+		if(User_Agent!=null)conn.addRequestProperty("User-Agent",User_Agent);
 		return this;
 	}
 	
 	public HttpSupport AttachAccept_Encoding(String Accept_Encoding){
-		if(Accept_Encoding!=null)conn.setRequestProperty("Accept-Encoding",Accept_Encoding);
+		if(Accept_Encoding!=null)conn.addRequestProperty("Accept-Encoding",Accept_Encoding);
 		return this;
 	}
 	
 	public HttpSupport AttachProperty(String key,String value){
-		if(key!=null&&value!=null)conn.setRequestProperty(key,value);
+		if(key!=null&&value!=null)conn.addRequestProperty(key,value);
 		return this;
 	}
 	
