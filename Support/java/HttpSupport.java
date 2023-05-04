@@ -87,7 +87,9 @@ public class HttpSupport
 				conn.setUseCaches(false);
 				conn.setInstanceFollowRedirects(true);
 				DataOutputStream dataout=new DataOutputStream(conn.getOutputStream());
-				dataout.writeBytes(postdata);
+				//错误方法，转换失去精度
+				//dataout.writeBytes(postdata);
+				dataout.write(postdata.getBytes());
 				dataout.flush();
 				dataout.close();
 				int responsecode=conn.getResponseCode();
